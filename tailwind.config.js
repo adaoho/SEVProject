@@ -7,14 +7,22 @@ export default withMT({
     extend: {
       colors: {
         samitra: {
-          500: "#D1D1D1",
-          600: "#F1DABF",
-          700: "#1C3144",
-          800: "#658458",
-          900: "#6DAA47",
+          green: "#60865D",
+          blackgreen: "#182825",
+          orange: "#DE8F6E",
+          white: "#E5F4E3",
+          gray: "#222424",
+          graybg: "#F6F6F6",
+          brown: "#775B59",
+          blue: "#4059AD",
+          black: "#27272A",
+          blackfooter: "#1A1A1A",
+          blackcopyright: "#222424",
         },
       },
       fontFamily: {
+        inter: ["Inter"],
+        sans: ["Plus Jakarta Sans", "sans-serif"],
         sree: ["Sree Krushnadevaraya"],
         poppins: ["Poppins"],
         noto: ["Noto Sans"],
