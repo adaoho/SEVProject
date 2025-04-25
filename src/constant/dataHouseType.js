@@ -10,12 +10,14 @@ import {
   Masjid2,
   Masjid3,
   Type62Image1,
+  Type62Image1Slider,
   Type62Image2,
   Type62Image3,
   Type62Image4,
   Type62Lantai1,
   Type62Lantai2,
   Type72Image1,
+  Type72Image1Slider,
   Type72Image2,
   Type72Image3,
   Type72Image4,
@@ -25,6 +27,7 @@ import {
   Type72Lantai1,
   Type72Lantai2,
   Type92Image1,
+  Type92Image1Slider,
   Type92Image2,
   Type92Image3,
   Type92Image4,
@@ -42,6 +45,12 @@ import {
 
 export const virtualTour =
   "https://www.keypano.com/v/7_5eq086d9gbb9-1741152884.html";
+
+export const houseTypeSlider = [
+  { id: 1, image: Type62Image1Slider, slug: "arvia-type-62", title: "Arvia" },
+  { id: 2, image: Type72Image1Slider, slug: "zyra-type-72", title: "Zyra" },
+  { id: 3, image: Type92Image1Slider, slug: "liora-type-92", title: "Liora" },
+];
 
 export const listDataHouseType = [
   {

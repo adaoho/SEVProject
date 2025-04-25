@@ -9,7 +9,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import ModalContact from "./components/ui/ModalContact";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import ModalShowVideo from "./components/ui/ModalShowVideo";
 import "aos/dist/aos.css";
 import Aos from "aos";

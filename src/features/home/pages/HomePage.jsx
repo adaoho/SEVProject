@@ -103,7 +103,7 @@ const HomePage = () => {
   return (
     <>
       <ScrollToTop>
-        <div className="hidden xl:block">
+        <div className="hidden xl:block ">
           <section
             id="hero-samitra-ecovillage"
             className="relative flex flex-col items-center w-screen h-screen"
@@ -151,7 +151,11 @@ const HomePage = () => {
                   initial={{ y: "50%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: "50%", opacity: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5, ease: "easeInOut" }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.5,
+                    ease: "easeInOut",
+                  }}
                   type="button"
                   onMouseEnter={() => setIsHoverVirtualTour(true)}
                   onMouseLeave={() => setIsHoverVirtualTour(false)}
@@ -173,7 +177,11 @@ const HomePage = () => {
                   initial={{ y: "50%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: "50%", opacity: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6, ease: "easeInOut" }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.6,
+                    ease: "easeInOut",
+                  }}
                   type="button"
                   // onClick={() => window.open(virtualTour, "__blank")}
                   onClick={() => dispatch(setModalVideo(true))}
@@ -518,11 +526,6 @@ const HomePage = () => {
               {/* <div className="relative w-full h-full"> */}
               <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
-                onSwiper={(swiper) => {
-                  setTimeout(() => {
-                    swiper.autoplay.start();
-                  }, 100);
-                }}
                 onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
                 navigation={{
                   prevEl: ".main-prev",
@@ -532,15 +535,12 @@ const HomePage = () => {
                 spaceBetween={20}
                 slidesPerView={1}
                 centeredSlides={true}
-                speed={1000}
-                loop={sliderFacilities.length > 1}
-                loopAdditionalSlides={sliderFacilities.length}
+                speed={700}
+                loop={true}
                 autoplay={{
                   delay: 3000,
                   disableOnInteraction: false,
                 }}
-                observer={true}
-                observeParents={true}
               >
                 {sliderFacilities.map((data, index) => (
                   <SwiperSlide key={"data-facilities" + index}>
