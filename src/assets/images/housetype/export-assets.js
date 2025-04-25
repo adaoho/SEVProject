@@ -55,8 +55,14 @@ import Type92Lantai1 from "./type-92-lantai-1.jpg";
 import Type92Lantai2 from "./type-92-lantai-2.jpg";
 import OutdoorPlayground1 from "./outdoor-playground-1.jpeg";
 import OutdoorPlayground2 from "./outdoor-playground-2.jpeg";
+import Type62Image1Slider from "./type-62-1-slider.jpg";
+import Type72Image1Slider from "./type-72-1-slider.jpg";
+import Type92Image1Slider from "./type-92-1-slider.jpg";
 
 export {
+  Type62Image1Slider,
+  Type72Image1Slider,
+  Type92Image1Slider,
   Type62Lantai1,
   Type62Lantai2,
   Type72Lantai1,

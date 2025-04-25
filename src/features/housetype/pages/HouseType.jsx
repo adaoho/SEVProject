@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../../../components/ui/Header";
 import ScrollToTop from "../../../hooks/ScrollToTop";
 import { BgHomePage } from "../../home/assets/export-assets";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { useNavigate } from "react-router-dom";
-import { listDataHouseType } from "../../../constant/dataHouseType";
+import {
+  houseTypeSlider,
+  listDataHouseType,
+} from "../../../constant/dataHouseType";
 import EcoFriendly from "../../../components/ui/EcoFriendly";
 import ContactUs from "../../../components/ui/ContactUs";
 import Footer from "../../../components/ui/Footer";
@@ -15,7 +18,9 @@ import Aos from "aos";
 
 const HouseType = () => {
   const navigate = useNavigate();
+
   const [activeIndex, setActiveIndex] = useState(0);
+  const swiperRef = useRef(null);
 
   useEffect(() => {
     Aos.refreshHard();
@@ -63,14 +68,15 @@ const HouseType = () => {
               >
                 <Swiper
                   modules={[Navigation, Pagination, Autoplay]}
-                  // onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+                  onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+                  onSwiper={(swiper) => (swiperRef.current = swiper)}
                   navigation={{
                     prevEl: ".main-prev",
                     nextEl: ".main-next",
                   }}
                   className="relative rounded-3xl"
                   spaceBetween={20}
-                  slidesPerView={"auto"}
+                  slidesPerView={1}
                   centeredSlides={true}
                   speed={1000}
                   loop={true}
@@ -78,35 +84,28 @@ const HouseType = () => {
                     disableOnInteraction: false,
                   }}
                 >
-                  {listDataHouseType?.[activeIndex]?.slider_image?.map(
-                    (data, index) => {
-                      return (
-                        <SwiperSlide key={"dataHouseType" + index}>
-                          <img
-                            key={"data-facilities" + index}
-                            src={data?.image}
-                            alt="photo-dummy"
-                            className="object-cover w-full h-full opacity-0 rounded-3xl"
-                            onLoad={(e) => {
-                              e.currentTarget.classList.remove("opacity-0");
-                            }}
-                          />
-                        </SwiperSlide>
-                      );
-                    }
-                  )}
+                  {houseTypeSlider?.map((data, index) => {
+                    return (
+                      <SwiperSlide key={"dataHouseType" + index}>
+                        <img
+                          src={data?.image}
+                          alt="photo-dummy"
+                          className={`object-cover w-full h-full rounded-3xl transition-opacity duration-500`}
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
                   <div className="absolute w-full bg-gradient-to-t z-10 bottom-0 h-[120px] px-8 from-black to-transparent flex justify-end items-center ">
                     <div
                       onClick={() =>
                         navigate(
-                          "/house-type/" +
-                            listDataHouseType?.[activeIndex]?.slug
+                          "/house-type/" + houseTypeSlider?.[activeIndex]?.slug
                         )
                       }
                       className="flex items-center px-4 py-2 text-gray-800 transition-all bg-white cursor-pointer rounded-xl gap-x-4 hover:bg-samitra-green hover:text-white"
                     >
                       <h1>
-                        Go to {listDataHouseType?.[activeIndex]?.title} Details
+                        Go to {houseTypeSlider?.[activeIndex]?.title} Details
                       </h1>
                       <BsArrowUpRight className="size-4" />
                     </div>
@@ -120,7 +119,10 @@ const HouseType = () => {
                     return (
                       <div data-aos="fade-up" data-aos-delay={index * 150}>
                         <div
-                          onClick={() => setActiveIndex(index)}
+                          onClick={() => {
+                            setActiveIndex(index);
+                            swiperRef.current?.slideToLoop(index);
+                          }}
                           key={"options-house-type" + index}
                           className={`${
                             index === activeIndex

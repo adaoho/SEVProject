@@ -31,7 +31,7 @@ const ScrollToTop = ({ children }) => {
     }, 100);
   }, [pathname]);
 
-  return <>{children}</>;
+  return <div className="overflow-hidden">{children}</div>;
 };
 
 export default ScrollToTop;
