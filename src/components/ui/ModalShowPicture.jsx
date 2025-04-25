@@ -15,8 +15,8 @@ const ModalShowPicture = ({ modalPicture, setModalPicture }) => {
       <AnimatePresence mode="wait">
         {modalPicture?.modal && (
           <>
-            <motion.div className="inset-0 w-full h-full hidden xl:flex justify-center items-center fixed z-50">
-              <div className="w-full h-full flex flex-col gap-y-8 items-center justify-center">
+            <motion.div className="fixed inset-0 z-50 items-center justify-center hidden w-full h-full xl:flex">
+              <div className="flex flex-col items-center justify-center w-full h-full gap-y-8">
                 <motion.h1
                   initial={{ y: "30%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -42,10 +42,10 @@ const ModalShowPicture = ({ modalPicture, setModalPicture }) => {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                   type="button"
-                  className="button-samitra-gray text-white w-fit z-10"
+                  className="z-10 text-white button-samitra-gray w-fit"
                   onClick={() => setModalPicture({ modal: false })}
                 >
-                  <div className="flex gap-x-12 items-center">
+                  <div className="flex items-center gap-x-12">
                     Close Picture
                   </div>
                 </motion.button>
@@ -62,8 +62,8 @@ const ModalShowPicture = ({ modalPicture, setModalPicture }) => {
               ></motion.div>
             </motion.div>
 
-            <motion.div className="inset-0 w-full h-full flex xl:hidden justify-center items-center fixed z-50 p-8">
-              <div className="w-full h-full flex flex-col gap-y-8 items-center justify-center">
+            <motion.div className="fixed inset-0 z-50 flex items-center justify-center w-full h-full p-8 xl:hidden">
+              <div className="flex flex-col items-center justify-center w-full h-full gap-y-8">
                 <motion.h1
                   initial={{ y: "30%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -80,7 +80,7 @@ const ModalShowPicture = ({ modalPicture, setModalPicture }) => {
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                   src={modalPicture?.selectedImage || ""}
                   alt=""
-                  className="w-full object-contain z-10"
+                  className="z-10 object-contain w-full"
                 />
 
                 <motion.button
@@ -89,7 +89,7 @@ const ModalShowPicture = ({ modalPicture, setModalPicture }) => {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                   type="button"
-                  className="text-white w-fit z-10 bg-samitra-brown px-2 py-1 rounded-lg"
+                  className="z-10 px-2 py-1 text-white rounded-lg w-fit bg-samitra-brown"
                   onClick={() => setModalPicture({ modal: false })}
                 >
                   <div className="flex gap-x-12 items-center text-[14px]">

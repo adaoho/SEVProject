@@ -42,29 +42,39 @@ const HouseTypeDetail = () => {
         <div className="hidden xl:block">
           <section
             id="hero-samitra-ecovillage-detail-house-type"
-            className="h-screen w-screen flex flex-col relative items-center"
+            className="relative flex flex-col items-center w-screen h-screen"
           >
             <Header />
 
             {/* Hero Section */}
-            <div className="w-full h-full bg-black/70 z-10 absolute"></div>
+            <div className="absolute z-10 w-full h-full bg-black/70"></div>
 
-            <div className="fixed inset-0 flex justify-center items-center">
+            <div
+              id="page-loader"
+              className="fixed inset-0 flex items-center justify-center"
+            >
               <div className="loader"></div>
             </div>
 
-            <img
-              src={dataDetail?.slider_image?.at(0)?.image}
-              alt="homepage-samitra-ecovillage"
-              className="h-full w-full object-cover absolute transition-opacity duration-700 opacity-0"
-              onLoad={(e) => {
-                e.currentTarget.classList.remove("opacity-0");
-                e.currentTarget.previousSibling.remove();
-              }}
-            />
+            <div className="absolute w-full h-full overflow-hidden ">
+              <img
+                data-aos="zoom-out"
+                src={dataDetail?.slider_image?.at(0)?.image}
+                alt="homepage-samitra-ecovillage"
+                className="object-cover w-full h-full transition-opacity duration-700 opacity-0"
+                onLoad={(e) => {
+                  e.currentTarget.classList.remove("opacity-0");
+                  const loader = document.getElementById("page-loader");
+                  if (loader) loader.remove();
+                }}
+              />
+            </div>
 
             <div className="grid grid-cols-2 z-10 items-start justify-center px-24 overflow-hidden h-full w-full gap-x-12 pb-[9%] pt-[11%]">
-              <div className="relative w-full h-full rounded-xl overflow-hidden flex">
+              <div
+                data-aos="fade-up"
+                className="relative flex w-full h-full overflow-hidden rounded-xl"
+              >
                 {/* <div className="relative w-full h-full"> */}
                 <Swiper
                   modules={[Navigation, Pagination, Autoplay]}
@@ -91,7 +101,7 @@ const HouseTypeDetail = () => {
                           key={"data-facilities" + index}
                           src={data?.image}
                           alt="photo-dummy"
-                          className="w-full h-full object-cover rounded-3xl opacity-0"
+                          className="object-cover w-full h-full opacity-0 rounded-3xl"
                           onLoad={(e) => {
                             e.currentTarget.classList.remove("opacity-0");
                           }}
@@ -100,43 +110,57 @@ const HouseTypeDetail = () => {
                     );
                   })}
                   <div className="absolute w-full bg-gradient-to-t z-10 bottom-0 h-[100px] px-8 from-black to-transparent flex justify-end items-center">
-                    {/* <div className="px-4 py-2 rounded-xl bg-white text-gray-800">
+                    {/* <div className="px-4 py-2 text-gray-800 bg-white rounded-xl">
                       <h1>
                         {dataDetail?.slider_image?.[activeIndex]?.title ||
                           "House Type"}
                       </h1>
                     </div> */}
 
-                    <div className="flex gap-x-1 items-center text-white z-10">
-                      <AiFillLeftCircle className="size-11 main-prev cursor-pointer transition-colors hover:text-samitra-green" />
-                      <AiFillRightCircle className="size-11 main-next cursor-pointer transition-colors hover:text-samitra-green" />
+                    <div className="z-10 flex items-center text-white gap-x-1">
+                      <AiFillLeftCircle className="transition-colors cursor-pointer size-11 main-prev hover:text-samitra-green" />
+                      <AiFillRightCircle className="transition-colors cursor-pointer size-11 main-next hover:text-samitra-green" />
                     </div>
                   </div>
                 </Swiper>
               </div>
 
-              <div className="w-full flex flex-col gap-y-10 text-white justify-end h-full">
+              <div className="flex flex-col justify-end w-full h-full text-white gap-y-10">
                 <div className="flex flex-col gap-y-1 h-fit">
                   <div
+                    data-aos="fade-up"
+                    data-aos-delay="50"
                     onClick={() => navigate("/house-type")}
-                    className="flex gap-x-4 items-center cursor-pointer hover:underline transition-all"
+                    className="flex items-center transition-all cursor-pointer gap-x-4 hover:underline"
                   >
                     <AiOutlineLeft className="size-5" />
                     <h2 className="text-[24px]">House Type</h2>
                   </div>
-                  <h1 className="text-[62px] font-bold">
+                  <h1
+                    data-aos="fade-up"
+                    data-aos-delay="100"
+                    className="text-[62px] font-bold"
+                  >
                     {dataDetail?.title} - {dataDetail?.type}
                   </h1>
                 </div>
 
                 <div className="flex flex-col h-fit">
-                  <div className="border-b-[1px] border-t-[1px] border-gray-300 h-20 flex items-center w-full justify-between">
+                  <div
+                    data-aos="fade-up"
+                    data-aos-delay="150"
+                    className="border-b-[1px] border-t-[1px] border-gray-300 h-20 flex items-center w-full justify-between"
+                  >
                     <h2 className="text-[24px] font-medium">Building Area</h2>
                     <h2 className="text-[24px] font-bold">
                       {dataDetail?.building_area}m<sup>2</sup>
                     </h2>
                   </div>
-                  <div className="border-b-[1px] border-gray-300 h-20 flex items-center w-full justify-between">
+                  <div
+                    data-aos="fade-up"
+                    data-aos-delay="250"
+                    className="border-b-[1px] border-gray-300 h-20 flex items-center w-full justify-between"
+                  >
                     <h2 className="text-[24px] font-medium">Land Area</h2>
                     <h2 className="text-[24px] font-bold">
                       {dataDetail?.land_area}m<sup>2</sup>
@@ -144,16 +168,20 @@ const HouseTypeDetail = () => {
                   </div>
                 </div>
 
-                <div className="w-full grid grid-cols-3 gap-x-5">
-                  <div className="w-full bg-samitra-blackgreen/60 flex justify-center items-center flex-col gap-y-1 pb-8 pt-4 rounded-xl">
-                    <div className="flex gap-x-3 items-center">
+                <div className="grid w-full grid-cols-3 gap-x-5">
+                  <div
+                    data-aos="fade-up"
+                    data-aos-delay="250"
+                    className="flex flex-col items-center justify-center w-full pt-4 pb-8 bg-samitra-blackgreen/60 gap-y-1 rounded-xl"
+                  >
+                    <div className="flex items-center gap-x-3">
                       <h2 className="text-[5rem] font-bold">
                         {dataDetail?.basic?.bedroom}
                       </h2>
                       <img
                         src={IconBedroom}
                         alt=""
-                        className="h-14 opacity-0 w-14 object-contain transition-opacity"
+                        className="object-contain transition-opacity opacity-0 h-14 w-14"
                         onLoad={(e) => {
                           e.currentTarget.classList.remove("opacity-0");
                         }}
@@ -161,15 +189,19 @@ const HouseTypeDetail = () => {
                     </div>
                     <h2 className="text-[18px]">Bedroom</h2>
                   </div>
-                  <div className="w-full bg-samitra-blackgreen/60 flex justify-center items-center flex-col gap-y-1 pb-8 pt-4 rounded-xl">
-                    <div className="flex gap-x-3 items-center">
+                  <div
+                    data-aos="fade-up"
+                    data-aos-delay="350"
+                    className="flex flex-col items-center justify-center w-full pt-4 pb-8 bg-samitra-blackgreen/60 gap-y-1 rounded-xl"
+                  >
+                    <div className="flex items-center gap-x-3">
                       <h2 className="text-[5rem] font-bold">
                         {dataDetail?.basic?.bathroom}
                       </h2>
                       <img
                         src={IconBathroom}
                         alt=""
-                        className="h-14 opacity-0 w-14 object-contain transition-opacity"
+                        className="object-contain transition-opacity opacity-0 h-14 w-14"
                         onLoad={(e) => {
                           e.currentTarget.classList.remove("opacity-0");
                         }}
@@ -177,15 +209,19 @@ const HouseTypeDetail = () => {
                     </div>
                     <h2 className="text-[18px]">Bathroom</h2>
                   </div>
-                  <div className="w-full bg-samitra-blackgreen/60 flex justify-center items-center flex-col gap-y-1 pb-8 pt-4 rounded-xl">
-                    <div className="flex gap-x-3 items-center">
+                  <div
+                    data-aos="fade-up"
+                    data-aos-delay="450"
+                    className="flex flex-col items-center justify-center w-full pt-4 pb-8 bg-samitra-blackgreen/60 gap-y-1 rounded-xl"
+                  >
+                    <div className="flex items-center gap-x-3">
                       <h2 className="text-[5rem] font-bold">
                         {dataDetail?.basic?.carport}
                       </h2>
                       <img
                         src={IconCarport}
                         alt=""
-                        className="h-14 opacity-0 w-14 object-contain transition-opacity"
+                        className="object-contain transition-opacity opacity-0 h-14 w-14"
                         onLoad={(e) => {
                           e.currentTarget.classList.remove("opacity-0");
                         }}
@@ -201,9 +237,9 @@ const HouseTypeDetail = () => {
           {/* Section Spesification */}
           <section
             id="about-samitra-ecovillage"
-            className="w-full px-24 py-20 grid grid-cols-2 h-full gap-x-12 bg-samitra-graybg text-white relative"
+            className="relative grid w-full h-full grid-cols-2 px-24 py-20 text-white gap-x-12 bg-samitra-graybg"
           >
-            <div className="w-full flex sticky top-48 h-fit">
+            <div data-aos="fade-up" className="sticky flex w-full top-48 h-fit">
               <img
                 src={BluePrintHouse}
                 alt=""
@@ -211,17 +247,25 @@ const HouseTypeDetail = () => {
               />
             </div>
 
-            <div className="w-full flex flex-col justify-start gap-y-5 text-samitra-blackfooter">
-              <h1 className="text-[30px] font-semibold flex-wrap">
+            <div className="flex flex-col justify-start w-full gap-y-5 text-samitra-blackfooter">
+              <h1
+                data-aos="fade-up"
+                data-aos-delay="50"
+                data-aos-offset="-100"
+                className="text-[30px] font-semibold flex-wrap"
+              >
                 {dataDetail?.title} - {dataDetail?.type} Spesification
               </h1>
 
-              <div className="flex flex-col gap-y-4 relative">
+              <div className="relative flex flex-col gap-y-4">
                 {houseSpesification?.map((data, index) => {
                   return (
                     <div
+                      data-aos="fade-up"
+                      data-aos-delay={index * 50}
+                      data-aos-offset="-100"
                       key={"spesification" + index}
-                      className="w-full flex pl-11 relative"
+                      className="relative flex w-full pl-11"
                     >
                       <div className="flex w-full border-b-[1px] border-gray-400 pb-4 pt-3 justify-between gap-x-8">
                         <h2 className="font-bold text-[18px]">{data?.title}</h2>
@@ -233,7 +277,7 @@ const HouseTypeDetail = () => {
                         />
                       </div>
                       {data?.number && (
-                        <div className="absolute rounded-full size-7 flex justify-center items-center bg-samitra-green text-white left-0 top-3">
+                        <div className="absolute left-0 flex items-center justify-center text-white rounded-full size-7 bg-samitra-green top-3">
                           {data?.number}
                         </div>
                       )}
@@ -246,25 +290,32 @@ const HouseTypeDetail = () => {
 
           <section
             id="about-samitra-ecovillage"
-            className="w-full px-24 py-20 grid grid-cols-2 h-full gap-x-24 bg-white text-samitra-blackcopyright relative"
+            className="relative grid w-full h-full grid-cols-2 px-24 py-20 bg-white gap-x-24 text-samitra-blackcopyright"
           >
             {/* Photo Selection */}
             <div className="flex flex-col gap-y-10">
               <div className="flex flex-col gap-y-8">
-                <h2 className="font-semibold text-[38px] leading-10">
+                <h2
+                  data-aos="fade-up"
+                  className="font-semibold text-[38px] leading-10"
+                >
                   Discover your Future Home, Designed for You
                 </h2>
-                <p>
+                <p data-aos="fade-up" data-aos-delay="50">
                   At Samitra Ecovillage, we believe that a home should do more
                   than just shelter—it should nurture. Rooted in sustainability
                   .{" "}
                 </p>
               </div>
 
-              <div className="w-full grid grid-cols-2 gap-x-4 sticky top-48 h-fit gap-y-8">
-                <div className="flex flex-col gap-y-2 max-h-[700px]">
+              <div className="sticky grid w-full grid-cols-2 gap-x-4 top-48 h-fit gap-y-8">
+                <div
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                  className="flex flex-col gap-y-2 max-h-[700px]"
+                >
                   <div
-                    className="relative group overflow-hidden rounded-b-xl cursor-pointer"
+                    className="relative overflow-hidden cursor-pointer group rounded-b-xl"
                     onClick={() => {
                       setModalPicture({
                         modal: true,
@@ -277,7 +328,7 @@ const HouseTypeDetail = () => {
                     <img
                       src={dataDetail?.blueprint?.first_floor?.image}
                       alt=""
-                      className="w-full h-full rounded-xl object-cover transition-opacity duration-700 opacity-0"
+                      className="object-cover w-full h-full transition-opacity duration-700 opacity-0 rounded-xl"
                       onLoad={(e) => {
                         e.currentTarget.classList.remove("opacity-0");
                       }}
@@ -293,9 +344,13 @@ const HouseTypeDetail = () => {
                   </div>
                   <h2 className="font-bold">Lantai 1</h2>
                 </div>
-                <div className="flex flex-col gap-y-2 max-h-[700px]">
+                <div
+                  data-aos="fade-up"
+                  data-aos-delay="150"
+                  className="flex flex-col gap-y-2 max-h-[700px]"
+                >
                   <div
-                    className="relative group overflow-hidden rounded-b-xl cursor-pointer"
+                    className="relative overflow-hidden cursor-pointer group rounded-b-xl"
                     onClick={() => {
                       setModalPicture({
                         modal: true,
@@ -308,7 +363,7 @@ const HouseTypeDetail = () => {
                     <img
                       src={dataDetail?.blueprint?.second_floor?.image}
                       alt=""
-                      className="w-full h-full rounded-xl object-cover transition-opacity duration-700 opacity-0"
+                      className="object-cover w-full h-full transition-opacity duration-700 opacity-0 rounded-xl"
                       onLoad={(e) => {
                         e.currentTarget.classList.remove("opacity-0");
                       }}
@@ -326,8 +381,10 @@ const HouseTypeDetail = () => {
                 </div>
 
                 <button
+                  data-aos="fade-up"
+                  data-aos-delay="50"
                   type="button"
-                  className="button-samitra-gray-green text-white flex gap-x-3 items-center w-fit col-span-2"
+                  className="flex items-center col-span-2 text-white button-samitra-gray-green gap-x-3 w-fit"
                   onClick={() => window.open(virtualTour, "__blank")}
                 >
                   <img src={IconsVirtualTourWhite} alt="" className="h-6" />
@@ -338,15 +395,20 @@ const HouseTypeDetail = () => {
 
             {/* Photo Selection */}
             <div className="flex flex-col gap-y-5">
-              <div className="w-full flex flex-col gap-y-5">
-                <h2 className="font-bold text-[18px] pb-4 border-b-[1px] border-gray-400">
+              <div className="flex flex-col w-full gap-y-5">
+                <h2
+                  data-aos="fade-up"
+                  className="font-bold text-[18px] pb-4 border-b-[1px] border-gray-400"
+                >
                   Eksterior
                 </h2>
 
-                <div className="w-full grid grid-cols-3 gap-3">
+                <div className="grid w-full grid-cols-3 gap-3">
                   {dataDetail?.eksterior?.map((data, index) => {
                     return (
                       <div
+                        data-aos="fade-up"
+                        data-aos-delay={index * 50}
                         key={"eksterior-images" + index}
                         className="relative group overflow-hidden rounded-b-xl cursor-pointer h-[10rem]"
                         onClick={() => {
@@ -360,7 +422,7 @@ const HouseTypeDetail = () => {
                         <img
                           src={data?.image}
                           alt=""
-                          className="w-full h-full rounded-xl object-cover transition-opacity duration-700 opacity-0"
+                          className="object-cover w-full h-full transition-opacity duration-700 opacity-0 rounded-xl"
                           onLoad={(e) => {
                             e.currentTarget.classList.remove("opacity-0");
                             e.currentTarget.previousSibling.remove();
@@ -380,15 +442,22 @@ const HouseTypeDetail = () => {
                 </div>
               </div>
 
-              <div className="w-full flex flex-col gap-y-5">
-                <h2 className="font-bold text-[18px] pb-4 border-b-[1px] border-gray-400">
+              <div className="flex flex-col w-full gap-y-5">
+                <h2
+                  data-aos="fade-up"
+                  data-aos-offset="-50"
+                  className="font-bold text-[18px] pb-4 border-b-[1px] border-gray-400"
+                >
                   Interior
                 </h2>
 
-                <div className="w-full grid grid-cols-3 gap-3">
+                <div className="grid w-full grid-cols-3 gap-3">
                   {dataDetail?.interior?.map((data, index) => {
                     return (
                       <div
+                        data-aos="fade-up"
+                        data-aos-delay={index * 50}
+                        data-aos-offset="-50"
                         key={"interior-images" + index}
                         className="relative group overflow-hidden rounded-b-xl cursor-pointer h-[10rem]"
                         onClick={() => {
@@ -402,7 +471,7 @@ const HouseTypeDetail = () => {
                         <img
                           src={data?.image}
                           alt=""
-                          className="w-full h-full rounded-xl object-cover transition-opacity duration-700 opacity-0"
+                          className="object-cover w-full h-full transition-opacity duration-700 opacity-0 rounded-xl"
                           onLoad={(e) => {
                             e.currentTarget.classList.remove("opacity-0");
                             e.currentTarget.previousSibling.remove();

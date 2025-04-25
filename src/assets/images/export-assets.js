@@ -14,6 +14,8 @@ import TendiBudi from "./4-tendi-budi.jpeg";
 import EzaWardhana from "./5-eza-wardhana.jpeg";
 import AmruAlArsy from "./6-amru-al-arsy.jpeg";
 import MuhammadFaisal from "./7-muhammad-faisal.jpeg";
+import AlfynNur from "./8-alfyn-nurrahmawati.jpeg";
+import DwiFajar from "./9-dwi-fajar-muhsy.jpeg";
 
 export {
   AgusPriyatno,
@@ -23,6 +25,8 @@ export {
   EzaWardhana,
   AmruAlArsy,
   MuhammadFaisal,
+  AlfynNur,
+  DwiFajar,
   VirtualTourBanner,
   ContactUsBanner,
   SitePlan1Full,
