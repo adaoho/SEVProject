@@ -1,6 +1,8 @@
 import {
   AgusPriyatno,
+  AlfynNur,
   AmruAlArsy,
+  DwiFajar,
   EzaWardhana,
   HendraSaputra,
   MuhammadFaisal,
@@ -86,6 +88,18 @@ export const dataMemberSamitra = [
     id: 7,
     image: MuhammadFaisal,
     name: "M. Faishal Ramadhan",
-    title: "Sales dan Marketing Staff",
+    title: "Sales dan Marketing Officer",
+  },
+  {
+    id: 8,
+    image: AlfynNur,
+    name: "Alfyn Nurrahmawati",
+    title: "Sales dan Marketing Officer",
+  },
+  {
+    id: 9,
+    image: DwiFajar,
+    name: "Dwi Fajar Muhsy",
+    title: "Sales dan Marketing Officer",
   },
 ];

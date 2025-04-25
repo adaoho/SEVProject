@@ -7,8 +7,23 @@ import NewsAndEvent from "./features/newsandevent/pages/NewsAndEvent";
 import NewsAndEventDetail from "./features/newsandevent/pages/NewsAndEventDetail";
 import "swiper/css";
 import "swiper/css/navigation";
+import ModalContact from "./components/ui/ModalContact";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import ModalShowVideo from "./components/ui/ModalShowVideo";
+import "aos/dist/aos.css";
+import Aos from "aos";
 
 function App() {
+  useEffect(() => {
+    Aos.init({
+      // disable: "phone",
+      duration: 700,
+      easing: "ease-out-cubic",
+    });
+    return () => Aos.refresh();
+  }, []);
+
   const mainRouter = createBrowserRouter([
     {
       element: <HomePage />,
@@ -43,6 +58,8 @@ function App() {
   return (
     <>
       <RouterProvider router={mainRouter} />
+      <ModalContact />
+      <ModalShowVideo />
     </>
   );
 }

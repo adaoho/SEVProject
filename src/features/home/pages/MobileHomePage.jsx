@@ -1,3 +1,4 @@
+import { BsFillPlayCircleFill } from "react-icons/bs";
 import { AiOutlineRightCircle } from "react-icons/ai";
 import { AiOutlineLeftCircle } from "react-icons/ai";
 import Aos from "aos";
@@ -27,13 +28,7 @@ import {
   listDataFacilities,
   sliderFacilities,
 } from "../../../constant/dataFacilities";
-import {
-  BgHomePage,
-  DummyPicture,
-  OurStory1,
-  OurStory2,
-  OurStory3,
-} from "../assets/export-assets";
+import { BgHomePage } from "../assets/export-assets";
 import {
   IconsCompassNorth,
   IconsVirtualTourBlack,
@@ -45,29 +40,24 @@ import { distanceToSamitra } from "../../../constant/dataSupport";
 import { useFetchAllPost } from "../../../stores/mainAction";
 import CardNews from "../../../components/ui/CardNews";
 import { dataAboutFirstSection } from "../../../constant/dataAbout";
+import { setModalVideo } from "../../../stores/mainSlices";
 
 const MobileHomePage = () => {
   const [isHoverVirtualTour, setIsHoverVirtualTour] = useState(false);
-  const [isHoverZoom, setIsHoverZoom] = useState(false);
   const [tabSitePlanIndex, setTabSitePlanIndex] = useState(1);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(3);
   const [modalPicture, setModalPicture] = useState({
     modal: false,
     selectedImage: "",
     title: "",
   });
 
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(3);
-
-  const { data: dataNews, isLoading: isLoadingAllPost } = useFetchAllPost(
-    page,
-    limit
-  );
+  const { data: dataNews } = useFetchAllPost(page, limit);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const windowHeight = useWindowHeight();
   const findGalleryImage = listDataFacilities?.find(
     (data) => data?.id === tabSitePlanIndex
   );
@@ -101,7 +91,7 @@ const MobileHomePage = () => {
 
   useEffect(() => {
     Aos.init({
-      disable: "phone",
+      // disable: "phone",
       duration: 700,
       easing: "ease-out-cubic",
     });
@@ -114,28 +104,29 @@ const MobileHomePage = () => {
         <div className="block xl:hidden">
           <section
             id="hero-samitra-ecovillage"
-            className="h-screen w-screen flex flex-col relative items-center"
+            className="relative flex flex-col items-center w-screen h-screen"
           >
             <Header />
 
             {/* Hero Section */}
-            <div className="w-full h-full bg-black/70 z-10 absolute"></div>
+            <div className="absolute z-10 w-full h-full bg-black/70"></div>
 
-            <div className="fixed inset-0 flex justify-center items-center">
+            <div className="fixed inset-0 flex items-center justify-center">
               <div className="loader"></div>
             </div>
 
             <img
+              data-aos="zoom-out"
               src={BgHomePage}
               alt="homepage-samitra-ecovillage"
-              className="h-full w-full object-cover absolute transition-opacity duration-700 opacity-0"
+              className="absolute object-cover w-full h-full transition-opacity duration-700 opacity-0"
               onLoad={(e) => {
                 e.currentTarget.classList.remove("opacity-0");
                 e.currentTarget.previousSibling.remove();
               }}
             />
 
-            <div className="flex flex-col z-10 items-start justify-center px-8 overflow-hidden h-full w-full gap-y-5 pt-5">
+            <div className="z-10 flex flex-col items-start justify-center w-full h-full px-8 pt-5 overflow-hidden gap-y-5">
               <motion.h1
                 initial="hidden"
                 animate="visible"
@@ -150,28 +141,43 @@ const MobileHomePage = () => {
                 </motion.div>
               </motion.h1>
 
-              <motion.button
-                initial={{ y: "50%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: "50%", opacity: 0 }}
-                transition={{ duration: 0.5, delay: 0.5, ease: "easeInOut" }}
-                type="button"
-                onMouseEnter={() => setIsHoverVirtualTour(true)}
-                onMouseLeave={() => setIsHoverVirtualTour(false)}
-                onClick={() => window.open(virtualTour, "__blank")}
-                className="flex justify-center gap-x-2 items-center px-4 py-2 bg-white rounded-xl w-fit hover:bg-samitra-green hover:text-white transition-colors text-[14px]"
-              >
-                <img
-                  src={
-                    isHoverVirtualTour
-                      ? IconsVirtualTourWhite
-                      : IconsVirtualTourBlack
-                  }
-                  alt=""
-                  className="h-5"
-                />
-                Take a Virtual Tour
-              </motion.button>
+              <div className="flex items-center gap-x-3">
+                <motion.button
+                  initial={{ y: "50%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: "50%", opacity: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5, ease: "easeInOut" }}
+                  type="button"
+                  onMouseEnter={() => setIsHoverVirtualTour(true)}
+                  onMouseLeave={() => setIsHoverVirtualTour(false)}
+                  onClick={() => window.open(virtualTour, "__blank")}
+                  className="flex justify-center gap-x-2 items-center px-4 py-2 bg-white rounded-xl w-fit hover:bg-samitra-green hover:text-white transition-colors text-[14px]"
+                >
+                  <img
+                    src={
+                      isHoverVirtualTour
+                        ? IconsVirtualTourWhite
+                        : IconsVirtualTourBlack
+                    }
+                    alt=""
+                    className="h-5"
+                  />
+                  Virtual Tour
+                </motion.button>
+                <motion.button
+                  initial={{ y: "50%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: "50%", opacity: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6, ease: "easeInOut" }}
+                  type="button"
+                  // onClick={() => window.open(virtualTour, "__blank")}
+                  onClick={() => dispatch(setModalVideo(true))}
+                  className="flex justify-center gap-x-2 items-center px-4 py-2 bg-white rounded-xl w-fit hover:bg-samitra-green hover:text-white transition-colors text-[14px]"
+                >
+                  <BsFillPlayCircleFill className="size-4" />
+                  Play Video
+                </motion.button>
+              </div>
 
               <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
@@ -195,7 +201,7 @@ const MobileHomePage = () => {
                     <SwiperSlide key={"card-house-type" + index}>
                       <motion.div
                         variants={textVariants}
-                        className="w-full bg-samitra-blackgreen h-full flex flex-col gap-y-3 justify-between items-start p-5 pb-12 rounded-xl text-white group hover:bg-samitra-green group hover:text-white transition-colors cursor-pointer duration-400"
+                        className="flex flex-col items-start justify-between w-full h-full p-5 pb-12 text-white transition-colors cursor-pointer bg-samitra-blackgreen gap-y-3 rounded-xl group hover:bg-samitra-green hover:text-white duration-400"
                         onClick={() => navigate("/house-type/" + data?.slug)}
                       >
                         <img
@@ -210,7 +216,7 @@ const MobileHomePage = () => {
                             );
                           }}
                         />
-                        <div className="w-full flex justify-between items-center">
+                        <div className="flex items-center justify-between w-full">
                           <div className="flex flex-col gap-y-1 font-plusjakarta">
                             <h1 className="font-semibold text-[28px] ">
                               {data?.title}
@@ -224,9 +230,9 @@ const MobileHomePage = () => {
                   );
                 })}
               </Swiper>
-              <div className="flex gap-x-1 items-center z-40 h-fit">
-                <AiOutlineLeftCircle className="size-9 home-prev cursor-pointer hover:text-samitra-green text-white" />
-                <AiOutlineRightCircle className="size-9 home-next cursor-pointer hover:text-samitra-green text-white" />
+              <div className="z-40 flex items-center gap-x-1 h-fit">
+                <AiOutlineLeftCircle className="text-white cursor-pointer size-9 home-prev hover:text-samitra-green" />
+                <AiOutlineRightCircle className="text-white cursor-pointer size-9 home-next hover:text-samitra-green" />
               </div>
             </div>
           </section>
@@ -236,12 +242,12 @@ const MobileHomePage = () => {
           {/* About Section */}
           <section
             id="about-samitra-ecovillage"
-            className="w-full px-8 py-20 grid grid-cols-1 h-full gap-x-12 bg-samitra-gray text-white"
+            className="grid w-full h-full grid-cols-1 px-8 py-20 text-white gap-x-12 bg-samitra-gray"
           >
-            <div className="flex flex-col h-full w-full gap-y-7 items-start">
+            <div className="flex flex-col items-start w-full h-full gap-y-7">
               <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
-                className="relative rounded-3xl w-full"
+                className="relative w-full rounded-3xl"
                 spaceBetween={20}
                 slidesPerView={"auto"}
                 centeredSlides={true}
@@ -268,7 +274,7 @@ const MobileHomePage = () => {
                 ))}
               </Swiper>
 
-              <div className="flex flex-col gap-y-5 w-full">
+              <div className="flex flex-col w-full gap-y-5">
                 <h2 className="font-plusjakarta text-[1.8rem] leading-[38px] font-medium">
                   Our Story: Where <br /> Sustainability Meets Home
                 </h2>
@@ -289,7 +295,7 @@ const MobileHomePage = () => {
                 ></iframe>
               </div>
             </div>
-            <div className="w-full flex justify-between h-fit py-4 gap-x-4">
+            <div className="flex justify-between w-full py-4 h-fit gap-x-4">
               {distanceToSamitra?.map((data, index) => {
                 return (
                   <div
@@ -307,17 +313,17 @@ const MobileHomePage = () => {
               })}
             </div>
 
-            <div className="w-full grid grid-cols-1 gap-y-4 mt-4">
+            <div className="grid w-full grid-cols-1 mt-4 gap-y-4">
               <button
                 onClick={() => navigate("/about")}
                 type="button"
-                className="button-samitra-green text-white"
+                className="text-white button-samitra-green"
               >
                 About Us
               </button>
               <button
                 type="button"
-                className="button-samitra-outline-white text-white"
+                className="text-white button-samitra-outline-white"
                 onClick={() =>
                   window.open(
                     "https://maps.app.goo.gl/otJGtBza5xvV7qCP8",
@@ -333,9 +339,9 @@ const MobileHomePage = () => {
           {/* Site Plan Section */}
           <section
             id="site-plan-samitra-ecovillage"
-            className="w-full px-8 pt-20 flex flex-col h-full bg-samitra-green gap-y-5 pb-24"
+            className="flex flex-col w-full h-full px-8 pt-20 pb-24 bg-samitra-green gap-y-5"
           >
-            <div className="w-full flex justify-center items-start flex-col text-left text-white gap-y-4">
+            <div className="flex flex-col items-start justify-center w-full text-left text-white gap-y-4">
               <h3 className="font-plusjakarta text-[14px]">Site Plan</h3>
               <h1 className="font-medium text-[1.8rem] font-plusjakarta">
                 A Visionary Layout for A Better Way of Living
@@ -358,7 +364,7 @@ const MobileHomePage = () => {
                     .image
                 }
                 alt=""
-                className="w-full rounded-xl h-full my-4 transition-opacity duration-700 opacity-0 bg-samitra-green"
+                className="w-full h-full my-4 transition-opacity duration-700 opacity-0 rounded-xl bg-samitra-green"
                 onLoad={(e) => {
                   e.currentTarget.classList.remove(
                     "opacity-0",
@@ -367,7 +373,7 @@ const MobileHomePage = () => {
                 }}
               />
 
-              <div className="w-full absolute justify-center items-center h-fit top-0 flex">
+              <div className="absolute top-0 flex items-center justify-center w-full h-fit">
                 <img
                   src={IconsCompassNorth}
                   alt="compas-north-icon"
@@ -376,7 +382,7 @@ const MobileHomePage = () => {
               </div>
             </div>
 
-            <div className="w-full overflow-scroll flex gap-x-5 font-plusjakarta text-white ">
+            <div className="flex w-full overflow-scroll text-white gap-x-5 font-plusjakarta ">
               {listDataFacilities?.map((data, index) => {
                 return (
                   <div key={"facilities" + index} className="relative">
@@ -396,12 +402,12 @@ const MobileHomePage = () => {
               })}
             </div>
 
-            <div className="grid grid-cols-2 w-full items-start h-full gap-5 mt-2">
+            <div className="grid items-start w-full h-full grid-cols-2 gap-5 mt-2">
               {findGalleryImage?.gallery?.map((data, index) => {
                 return (
                   <div
                     key={"gallery-images" + index}
-                    className="relative group overflow-hidden rounded-b-xl cursor-pointer"
+                    className="relative overflow-hidden cursor-pointer group rounded-b-xl"
                     onClick={() => {
                       setModalPicture({
                         modal: true,
@@ -411,7 +417,7 @@ const MobileHomePage = () => {
                     }}
                   >
                     {/* Skeleton Loader */}
-                    <div className="absolute inset-0 animate-pulse rounded-xl flex justify-center items-center"></div>
+                    <div className="absolute inset-0 flex items-center justify-center animate-pulse rounded-xl"></div>
 
                     {/* Actual Image */}
                     <img
@@ -437,7 +443,7 @@ const MobileHomePage = () => {
             </div>
 
             {findGalleryImage?.slug !== "" && (
-              <div className="w-full flex justify-center items-center mt-12">
+              <div className="flex items-center justify-center w-full mt-12">
                 <button
                   type="button"
                   className="button-samitra-gray text-white w-fit text-[14px]"
@@ -445,7 +451,7 @@ const MobileHomePage = () => {
                     navigate("/house-type/" + findGalleryImage?.slug)
                   }
                 >
-                  <div className="flex gap-x-12 items-center">
+                  <div className="flex items-center gap-x-12">
                     More About {findGalleryImage?.title}{" "}
                     <BsArrowUpRight className="size-4" />
                   </div>
@@ -459,7 +465,7 @@ const MobileHomePage = () => {
             id="virtual-tour-section"
             className="h-[390px] w-full relative"
           >
-            <div className="bg-black/70 absolute w-full h-full z-10 flex justify-center items-center flex-col gap-y-5">
+            <div className="absolute z-10 flex flex-col items-center justify-center w-full h-full bg-black/70 gap-y-5">
               <h2 className="font-plusjakarta font-medium text-[1.4rem] text-white text-center">
                 Step Inside. Experience Your <br /> Future Home in 360°
               </h2>
@@ -475,7 +481,7 @@ const MobileHomePage = () => {
             <img
               src={VirtualTourBanner}
               alt="samitra-contact"
-              className="object-cover h-full w-full absolute opacity-0 blur-lg"
+              className="absolute object-cover w-full h-full opacity-0 blur-lg"
               onLoad={(e) => {
                 e.currentTarget.classList.remove("opacity-0", "blur-lg");
               }}
@@ -485,10 +491,10 @@ const MobileHomePage = () => {
           {/* Facilities Section */}
           <section
             id="virtual-tour-section"
-            className="h-full w-full relative grid grid-cols-1 bg-samitra-gray px-8 py-14 gap-y-4"
+            className="relative grid w-full h-full grid-cols-1 px-8 bg-samitra-gray py-14 gap-y-4"
           >
-            <div className="w-full flex flex-col gap-y-6">
-              <div className="flex flex-col gap-y-3 text-white items-start">
+            <div className="flex flex-col w-full gap-y-6">
+              <div className="flex flex-col items-start text-white gap-y-3">
                 <h1 className="font-plusjakarta text-[1.5rem] font-semibold">
                   Facilities for a Sustainable & Comfortable Life
                 </h1>
@@ -499,7 +505,7 @@ const MobileHomePage = () => {
                 </p>
               </div>
 
-              <div className="relative w-full h-full rounded-xl overflow-hidden flex">
+              <div className="relative flex w-full h-full overflow-hidden rounded-xl">
                 <Swiper
                   modules={[Navigation, Pagination, Autoplay]}
                   onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
@@ -523,7 +529,7 @@ const MobileHomePage = () => {
                         <img
                           src={data?.image}
                           alt="photo-dummy"
-                          className="w-full h-full object-cover rounded-3xl opacity-0"
+                          className="object-cover w-full h-full opacity-0 rounded-3xl"
                           onLoad={(e) => {
                             e.currentTarget.classList.remove("opacity-0");
                           }}
@@ -538,25 +544,25 @@ const MobileHomePage = () => {
                       </h1>
                     </div>
 
-                    <div className="flex gap-x-1 items-center text-white z-10">
-                      <AiFillLeftCircle className="size-8 main-prev cursor-pointer transition-colors hover:text-samitra-green" />
-                      <AiFillRightCircle className="size-8 main-next cursor-pointer transition-colors hover:text-samitra-green" />
+                    <div className="z-10 flex items-center text-white gap-x-1">
+                      <AiFillLeftCircle className="transition-colors cursor-pointer size-8 main-prev hover:text-samitra-green" />
+                      <AiFillRightCircle className="transition-colors cursor-pointer size-8 main-next hover:text-samitra-green" />
                     </div>
                   </div>
                 </Swiper>
               </div>
 
-              <div className="w-full grid grid-cols-1 gap-x-8 gap-y-10 text-white">
+              <div className="grid w-full grid-cols-1 text-white gap-x-8 gap-y-10">
                 {facilitiesList?.map((data, index) => {
                   return (
                     <div
                       key={"facilitiesList" + index}
-                      className="flex gap-x-6 items-start"
+                      className="flex items-start gap-x-6"
                     >
                       <img
                         src={data?.icon}
                         alt="gate-samitra-ecovillage"
-                        className="h-16 object-contain"
+                        className="object-contain h-16"
                       />
                       <div className="flex flex-col font-plusjakarta">
                         <h2 className="text-[12px]">Facilities</h2>
@@ -574,22 +580,22 @@ const MobileHomePage = () => {
 
           <section
             id="news-and-event-samitra-ecovillage"
-            className="bg-white w-full px-8 py-20 flex flex-col gap-y-10 h-full"
+            className="flex flex-col w-full h-full px-8 py-20 bg-white gap-y-10"
           >
-            <div className="flex flex-col gap-y-1 items-start w-full">
+            <div className="flex flex-col items-start w-full gap-y-1">
               <h2 className="font-plusjakarta text-[14px]">News and Event</h2>
               <div
                 onClick={() => navigate("/news-and-event")}
-                className="w-full flex justify-between items-center group cursor-pointer"
+                className="flex items-center justify-between w-full cursor-pointer group"
               >
                 <span className="font-plusjakarta text-[1.8rem] group-hover:text-samitra-green transition-all max-w-[80%]">
                   Our Latest Updates for You
                 </span>
-                <BsArrowUpRight className="size-8 group-hover:text-samitra-green transition-all" />
+                <BsArrowUpRight className="transition-all size-8 group-hover:text-samitra-green" />
               </div>
             </div>
 
-            <div className="w-full grid grid-cols-1 gap-y-8 items-center">
+            <div className="grid items-center w-full grid-cols-1 gap-y-8">
               {dataNews?.posts?.map((data, index) => {
                 return <CardNews key={"news-event" + index} data={data} />;
               })}

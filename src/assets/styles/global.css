@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* html {
+html {
   scroll-behavior: smooth;
-} */
+}
 
 :root {
   color-scheme: light;
@@ -14,6 +14,10 @@
 
 .button-green {
   @apply bg-samitra-green flex items-center justify-center capitalize font-normal text-[16px];
+}
+
+.button-orange {
+  @apply bg-samitra-orange flex items-center justify-center capitalize font-normal text-[16px];
 }
 
 .button-samitra-green {

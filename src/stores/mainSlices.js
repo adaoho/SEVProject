@@ -9,6 +9,10 @@ const initialState = {
   drawerComment: false,
   showSessionExpiredToast: false,
   refresh: false,
+  modalContact: false,
+  contactName: "",
+  modalShowVideo: false,
+  drawerContactUsMobile: false,
 };
 
 const mainSlice = createSlice({
@@ -21,11 +25,20 @@ const mainSlice = createSlice({
     setModalHeader(state, action) {
       state.modalHeader = action.payload;
     },
+    setDrawerContactUsMobile(state, action) {
+      state.drawerContactUsMobile = action.payload;
+    },
+    setModalVideo(state, action) {
+      state.modalShowVideo = action.payload;
+    },
     setModalBody(state, action) {
       state.modalBody = action.payload;
     },
     setModalConfirmation(state, action) {
       state.modalConfirmation = action.payload;
+    },
+    setModalContact(state, action) {
+      state.modalContact = action.payload;
     },
     setLoading(state) {
       state.loading = !state.loading;
@@ -48,6 +61,9 @@ const mainSlice = createSlice({
 });
 
 export const {
+  setDrawerContactUsMobile,
+  setModalVideo,
+  setModalContact,
   setRefresh,
   setSessionExpiredToast,
   setDrawerComment,

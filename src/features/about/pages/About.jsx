@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../../components/ui/Header";
 import Footer from "../../../components/ui/Footer";
 import ContactUs from "../../../components/ui/ContactUs";
 import ScrollToTop from "../../../hooks/ScrollToTop";
 import { BgHomePage } from "../../home/assets/export-assets";
-import { BsArrowUpRight } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import {
-  DummyProfile,
   IconA,
   IconA2,
   IconI,
@@ -28,6 +26,7 @@ import {
   dataAboutSlider,
   dataMemberSamitra,
 } from "../../../constant/dataAbout";
+import Aos from "aos";
 
 const About = () => {
   const navigate = useNavigate();
@@ -67,6 +66,15 @@ const About = () => {
     },
   ];
 
+  useEffect(() => {
+    Aos.init({
+      disable: "phone",
+      duration: 700,
+      easing: "ease-out-cubic",
+    });
+    return () => Aos.refresh();
+  }, []);
+
   return (
     <>
       <ScrollToTop>
@@ -79,29 +87,39 @@ const About = () => {
 
             {/* Hero Section */}
             <div className="w-full h-full bg-black/70 z-10 absolute flex justify-center items-center pt-[5%]">
-              <h1 className="text-white font-bold text-[62px]">
+              <h1
+                data-aos="fade-up"
+                className="text-white font-bold text-[62px]"
+              >
                 About Samitra
               </h1>
             </div>
 
-            <div className="fixed inset-0 flex justify-center items-center">
+            <div
+              id="page-loader"
+              className="fixed inset-0 flex items-center justify-center"
+            >
               <div className="loader"></div>
             </div>
 
-            <img
-              src={BgHomePage}
-              alt="homepage-samitra-ecovillage"
-              className="h-full w-full object-cover absolute transition-opacity duration-700 opacity-0"
-              onLoad={(e) => {
-                e.currentTarget.classList.remove("opacity-0");
-                e.currentTarget.previousSibling.remove();
-              }}
-            />
+            <div className="absolute w-full h-full overflow-hidden ">
+              <img
+                data-aos="zoom-out"
+                src={BgHomePage}
+                alt="homepage-samitra-ecovillage"
+                className="object-cover w-full h-full transition-opacity duration-700 opacity-0"
+                onLoad={(e) => {
+                  e.currentTarget.classList.remove("opacity-0");
+                  const loader = document.getElementById("page-loader");
+                  if (loader) loader.remove();
+                }}
+              />
+            </div>
           </section>
 
           <section
             id="vission-mission-section"
-            className="w-full flex justify-center items-center h-full px-24 gap-y-20 bg-white pb-40 pt-28 flex-col"
+            className="flex flex-col items-center justify-center w-full h-full px-24 pb-40 bg-white gap-y-20 pt-28"
           >
             <div className="grid grid-cols-3 w-full h-[230px] gap-x-5">
               {dataAboutFirstSection?.map((data, index) => {
@@ -111,9 +129,11 @@ const About = () => {
                     className="w-full flex justify-center items-center h-[270px]"
                   >
                     <img
+                      data-aos="fade-up"
+                      data-aos-delay={index * 100}
                       src={data?.image}
                       alt=""
-                      className="w-full h-full object-cover rounded-xl"
+                      className="object-cover w-full h-full rounded-xl"
                     />
                   </div>
                 );
@@ -121,24 +141,48 @@ const About = () => {
             </div>
 
             <div className="flex flex-col gap-y-10 w-full justify-start text-[#27272A]">
-              <h2 className="text-left text-[40px] font-semibold leading-[50px]">
+              <h2
+                data-aos="fade-up"
+                data-aos-delay="50"
+                className="text-left text-[40px] font-semibold leading-[50px]"
+              >
                 Our Purpose, Our Promise: <br /> Sustainable Homes, Innovative
                 Living
               </h2>
 
               <div className="w-full grid grid-cols-2 gap-x-20 flex-wrap text-[16px] text-gray-700">
                 <div className="flex flex-col gap-y-2">
-                  <h2 className="font-bold">VISION</h2>
-                  <p className="font-inter leading-8">
+                  <h2
+                    data-aos="fade-up"
+                    data-aos-delay="50"
+                    className="font-bold"
+                  >
+                    VISION
+                  </h2>
+                  <p
+                    data-aos="fade-up"
+                    data-aos-delay="100"
+                    className="leading-8 font-inter"
+                  >
                     Becoming a real estate company that continuously innovates
                     and prioritizes customer satisfaction, with a goal of
                     developing a 5-hectare residential area within the next five
                     years in Madiun Raya.
                   </p>
                 </div>
-                <div className="flex flex-col gap-y-2 w-full flex-wrap">
-                  <h2 className="font-bold">MISSION</h2>
-                  <ul className="list-decimal pl-4 leading-8 font-inter">
+                <div className="flex flex-col flex-wrap w-full gap-y-2">
+                  <h2
+                    data-aos="fade-up"
+                    data-aos-delay="50"
+                    className="font-bold"
+                  >
+                    MISSION
+                  </h2>
+                  <ul
+                    data-aos="fade-up"
+                    data-aos-delay="100"
+                    className="pl-4 leading-8 list-decimal font-inter"
+                  >
                     <li>
                       Continuously innovating to provide high-quality and
                       well-designed housing products.
@@ -159,7 +203,11 @@ const About = () => {
               </div>
 
               <div className="w-full grid grid-cols-2 gap-x-20 flex-wrap text-[16px] mt-10">
-                <div className="relative w-full h-full rounded-3xl overflow-hidden flex">
+                <div
+                  data-aos="fade-up"
+                  data-aos-delay="50"
+                  className="relative flex w-full h-full overflow-hidden rounded-3xl"
+                >
                   <Swiper
                     modules={[Navigation, Pagination, Autoplay]}
                     onSwiper={(swiper) => {
@@ -188,7 +236,7 @@ const About = () => {
                           <img
                             src={data?.image}
                             alt="photo-dummy"
-                            className="w-full h-full object-cover rounded-3xl opacity-0"
+                            className="object-cover w-full h-full opacity-0 rounded-3xl"
                             onLoad={(e) => {
                               e.currentTarget.classList.remove("opacity-0");
                             }}
@@ -199,18 +247,25 @@ const About = () => {
                   </Swiper>
 
                   <div className="absolute w-full bg-gradient-to-t z-10 bottom-0 h-[100px] px-8 from-black to-transparent flex justify-end items-center">
-                    <div className="flex gap-x-1 items-center text-white z-10">
-                      <AiFillLeftCircle className="size-11 prev-about cursor-pointer transition-colors hover:text-samitra-green" />
-                      <AiFillRightCircle className="size-11 next-about cursor-pointer transition-colors hover:text-samitra-green" />
+                    <div className="z-10 flex items-center text-white gap-x-1">
+                      <AiFillLeftCircle className="transition-colors cursor-pointer size-11 prev-about hover:text-samitra-green" />
+                      <AiFillRightCircle className="transition-colors cursor-pointer size-11 next-about hover:text-samitra-green" />
                     </div>
                   </div>
                 </div>
 
-                <div className="w-full flex justify-start flex-col gap-y-7">
-                  <h2 className="text-left text-[40px] font-semibold leading-[50px]">
+                <div className="flex flex-col justify-start w-full gap-y-7">
+                  <h2
+                    data-aos="fade-up"
+                    className="text-left text-[40px] font-semibold leading-[50px]"
+                  >
                     Our Journey of Growth <br /> and Contribution.
                   </h2>
-                  <p className="font-inter leading-8 text-[16px] text-gray-700">
+                  <p
+                    data-aos="fade-up"
+                    data-aos-delay="50"
+                    className="font-inter leading-8 text-[16px] text-gray-700"
+                  >
                     PT. Samitra Berkelimpahan Property, known as Samitra Land,
                     has over five years of experience in the property industry,
                     continuously striving to contribute to economic development
@@ -221,7 +276,11 @@ const About = () => {
                     company has grown and evolved in line with its strategic
                     plans.
                   </p>
-                  <div className="flex gap-x-10">
+                  <div
+                    data-aos="fade-up"
+                    data-aos-delay="150"
+                    className="flex gap-x-10"
+                  >
                     <div className="bg-samitra-green w-[10px] h-full"></div>
                     <p className="font-inter leading-8 text-[16px] text-gray-500">
                       The trust given by various stakeholders inspires Samitra
@@ -235,13 +294,20 @@ const About = () => {
 
           <section
             id="samitra-ecovillage-core-value"
-            className="bg-samitra-gray w-full px-24 flex flex-col justify-start items-center py-32 text-white"
+            className="flex flex-col items-center justify-start w-full px-24 py-32 text-white bg-samitra-gray"
           >
             <div className="flex flex-col items-center gap-y-5">
-              <h2 className="text-left text-[40px] leading-[50px]">
+              <h2
+                data-aos="fade-up"
+                className="text-left text-[40px] leading-[50px]"
+              >
                 Our Core Values: The Foundation of Samitra Land
               </h2>
-              <p className="font-inter leading-8 text-center w-full">
+              <p
+                data-aos="fade-up"
+                data-aos-delay="150"
+                className="w-full leading-8 text-center font-inter"
+              >
                 At Samitra Land, our core values drive innovation, integrity,
                 and excellence. We create high-quality homes <br /> and
                 thriving, sustainable communities through forward-thinking
@@ -249,17 +315,23 @@ const About = () => {
               </p>
             </div>
 
-            <div className="h-[1px] w-full border-b-[1px] border-dashed border-gray-400 my-14"></div>
+            <div
+              data-aos="zoom-out"
+              className="h-[1px] w-full border-b-[1px] border-dashed border-gray-400 my-14"
+            ></div>
 
-            <div className="flex flex-col gap-y-5 w-full items-center justify-start">
-              <img src={IconSamitra} alt="" className="" />
-              <div className="flex gap-4 w-full items-center flex-wrap justify-center gap-x-20 gap-y-10 mt-10">
+            <div className="flex flex-col items-center justify-start w-full gap-y-5">
+              <img data-aos="fade-up" src={IconSamitra} alt="" className="" />
+              <div className="flex flex-wrap items-center justify-center w-full gap-4 mt-10 gap-x-20 gap-y-10">
                 {/* Icon S */}
                 {listOfCore?.map((data, index) => {
                   return (
                     <div
+                      data-aos="fade-up"
+                      data-aos-delay={index * 100}
+                      data-aos-offset="-50"
                       key={"core-value" + index}
-                      className="flex gap-x-4 justify-center items-center"
+                      className="flex items-center justify-center gap-x-4"
                     >
                       <img src={data?.icon} alt="" className="h-14" />
                       <div className="flex flex-col">
@@ -279,15 +351,22 @@ const About = () => {
 
           <section
             id="about-samitra-ecovillage-our-team"
-            className="w-full bg-samitra-graybg px-24 flex flex-col gap-y-10 py-28"
+            className="flex flex-col w-full px-24 bg-samitra-graybg gap-y-10 py-28"
           >
-            <div className="w-full grid grid-cols-2 gap-x-20">
+            <div className="grid w-full grid-cols-2 gap-x-20">
               <div className="flex flex-col gap-y-10">
-                <h2 className="text-left text-[40px] leading-[50px] font-semibold">
+                <h2
+                  data-aos="fade-up"
+                  className="text-left text-[40px] leading-[50px] font-semibold"
+                >
                   Our Team: <br />
                   Building with Purpose
                 </h2>
-                <div className="flex gap-x-10 items-center">
+                <div
+                  data-aos="fade-up"
+                  data-aos-delay="50"
+                  className="flex items-center gap-x-10"
+                >
                   <h2 className="font-inter text-[14px] text-gray-700">
                     Developed by
                   </h2>
@@ -295,15 +374,20 @@ const About = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-y-10">
-                <p className="text-left text-[16px] leading-[32px] font-inter text-gray-700">
+                <p
+                  data-aos="fade-up"
+                  className="text-left text-[16px] leading-[32px] font-inter text-gray-700"
+                >
                   Get to know the passionate professionals behind Samitra Land.
                   With expertise, innovation, and a commitment to excellence,
                   our team works together to create high-quality housing and
                   thriving communities for a better future.
                 </p>
                 <button
+                  data-aos="fade-up"
+                  data-aos-delay="50"
                   type="button"
-                  className="button-samitra-green text-white w-fit"
+                  className="text-white button-samitra-green w-fit"
                   onClick={() =>
                     window.open(
                       "https://www.instagram.com/samitraland/",
@@ -316,25 +400,31 @@ const About = () => {
               </div>
             </div>
 
-            <div className="h-[1px] w-full border-b-[1px] border-gray-400 my-14"></div>
+            <div
+              data-aos="zoom-out"
+              className="h-[1px] w-full border-b-[1px] border-gray-400 my-14"
+            ></div>
 
-            <div className="grid grid-cols-4 w-full gap-10">
+            <div className="grid w-full grid-cols-5 gap-6">
               {dataMemberSamitra?.map((data, index) => {
                 return (
                   <div
+                    data-aos="fade-up"
+                    data-aos-delay={index * 150}
+                    data-aos-offset="-50"
                     key={"profile-person" + index}
-                    className="flex flex-col gap-y-7 h-fit"
+                    className="flex flex-col gap-y-3 h-fit"
                   >
                     <img
                       src={data?.image}
                       alt=""
                       className="h-[280px] object-cover rounded-2xl"
                     />
-                    <div className="flex flex-col gap-y-2 items-start w-full h-full">
-                      <div className="border-[1px] text-[16px] font-bold border-samitra-green text-samitra-green rounded-xl flex justify-center items-center w-fit px-2 py-2 truncate">
-                        {data?.name}
+                    <div className="flex flex-col items-start w-full h-full gap-y-2">
+                      <div className="border-[1px] text-[15px] font-bold border-samitra-green text-samitra-green rounded-xl flex w-fit px-2 py-2 truncate text-left">
+                        <h2 className="max-w-full">{data?.name}</h2>
                       </div>
-                      <h2 className="text-gray-700 text-[14px]">
+                      <h2 className="text-gray-700 text-[13px] truncate">
                         {data?.title}
                       </h2>
                     </div>
@@ -346,13 +436,20 @@ const About = () => {
 
           <section
             id="samitra-land-care"
-            className="bg-samitra-green w-full px-24 py-32 flex flex-col items-center gap-y-20"
+            className="flex flex-col items-center w-full px-24 py-32 bg-samitra-green gap-y-20"
           >
-            <div className="flex flex-col gap-y-10 text-white items-center">
-              <h2 className="text-center text-[40px] leading-[50px]">
+            <div className="flex flex-col items-center text-white gap-y-10">
+              <h2
+                data-aos="fade-up"
+                className="text-center text-[40px] leading-[50px]"
+              >
                 Samitra Land Care: <br /> Giving Back, Growing Together
               </h2>
-              <p className="text-center text-[16px] leading-[32px] font-inter w-[80%] text-gray-200">
+              <p
+                data-aos="fade-up"
+                data-aos-delay="50"
+                className="text-center text-[16px] leading-[32px] font-inter w-[80%] text-gray-200"
+              >
                 Samitra Land Care is a social responsibility program initiated
                 by Samitra Land, a housing developer, to support the wider
                 community. This program focuses on various aspects, including
@@ -372,6 +469,8 @@ const About = () => {
               {dataAboutSamitraLandCare?.map((data, index) => {
                 return (
                   <img
+                    data-aos="fade-up"
+                    data-aos-delay={index * 150}
                     key={"samitra-land-care" + index}
                     src={data?.image}
                     alt=""
