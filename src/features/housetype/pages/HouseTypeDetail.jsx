@@ -39,7 +39,7 @@ const HouseTypeDetail = () => {
   return (
     <>
       <ScrollToTop>
-        <div className="hidden xl:block">
+        <div className="hidden xl:block ">
           <section
             id="hero-samitra-ecovillage-detail-house-type"
             className="relative flex flex-col items-center w-screen h-screen"
@@ -56,7 +56,7 @@ const HouseTypeDetail = () => {
               <div className="loader"></div>
             </div>
 
-            <div className="absolute w-full h-full overflow-hidden ">
+            <div className="absolute w-full h-full overflow-hidden">
               <img
                 data-aos="zoom-out"
                 src={dataDetail?.slider_image?.at(0)?.image}
@@ -239,7 +239,7 @@ const HouseTypeDetail = () => {
             id="about-samitra-ecovillage"
             className="relative grid w-full h-full grid-cols-2 px-24 py-20 text-white gap-x-12 bg-samitra-graybg"
           >
-            <div data-aos="fade-up" className="sticky flex w-full top-48 h-fit">
+            <div data-aos="fade-up" className="sticky w-full top-48 h-fit">
               <img
                 src={BluePrintHouse}
                 alt=""
@@ -251,7 +251,7 @@ const HouseTypeDetail = () => {
               <h1
                 data-aos="fade-up"
                 data-aos-delay="50"
-                data-aos-offset="-100"
+                data-aos-offset="-50"
                 className="text-[30px] font-semibold flex-wrap"
               >
                 {dataDetail?.title} - {dataDetail?.type} Spesification

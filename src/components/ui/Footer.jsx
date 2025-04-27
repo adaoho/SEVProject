@@ -108,7 +108,7 @@ const Footer = () => {
               >
                 <AiFillYoutube className="size-6" /> <h2>YouTube</h2>
               </a>
-              <a
+              {/* <a
                 data-aos="fade-up"
                 data-aos-delay="450"
                 data-aos-offset="-100"
@@ -119,7 +119,7 @@ const Footer = () => {
               >
                 <RiWhatsappFill className="size-6" />
                 <h2>+62 85736207240</h2>
-              </a>
+              </a> */}
             </div>
 
             <div className="w-full flex gap-x-5 justify-end items-center text-white text-[14px] flex-wrap gap-y-3">
@@ -252,7 +252,7 @@ const Footer = () => {
 
           <div className="w-full flex flex-col justify-between items-center text-[14px]">
             <div className="flex flex-col w-full gap-y-4">
-              <div className="w-full flex gap-x-5 justify-start items-center text-white text-[14px] flex-wrap gap-y-3 mb-4">
+              <div className="w-full flex gap-x-5 justify-start items-center text-white text-[14px] flex-wrap">
                 <a
                   onClick={() => navigate("/house-type/arvia-type-62")}
                   className="transition-all cursor-pointer hover:underline"
@@ -274,6 +274,8 @@ const Footer = () => {
                   Liora
                 </a>
                 <div className="bg-white rounded-full size-1"></div>
+              </div>
+              <div className="w-full flex gap-x-5 justify-start items-center text-white text-[14px] flex-wrap mb-4">
                 <a
                   onClick={() => navigate("/about")}
                   className="transition-all cursor-pointer hover:underline"
@@ -289,23 +291,25 @@ const Footer = () => {
                 </a>
               </div>
 
-              <a
-                href={"https://www.instagram.com/samitraecovillage/"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex gap-x-2 items-center text-gray-600 hover:text-[#fd5949]"
-              >
-                <AiFillInstagram className="size-6" /> <h2>Instagram</h2>
-              </a>
-              <a
-                href={"https://www.youtube.com/@samitraland9266/videos"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center text-gray-600 gap-x-2 hover:text-red-500"
-              >
-                <AiFillYoutube className="size-6" /> <h2>YouTube</h2>
-              </a>
-              <a
+              <div className="flex gap-x-4 items-center w-full">
+                <a
+                  href={"https://www.instagram.com/samitraecovillage/"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex gap-x-2 items-center text-gray-600 hover:text-[#fd5949]"
+                >
+                  <AiFillInstagram className="size-6" /> <h2>Instagram</h2>
+                </a>
+                <a
+                  href={"https://www.youtube.com/@samitraland9266/videos"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center text-gray-600 gap-x-2 hover:text-red-500"
+                >
+                  <AiFillYoutube className="size-6" /> <h2>YouTube</h2>
+                </a>
+              </div>
+              {/* <a
                 href="https://wa.me/6285736207240"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -313,7 +317,7 @@ const Footer = () => {
               >
                 <RiWhatsappFill className="size-6" />
                 <h2>+62 85736207240</h2>
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
