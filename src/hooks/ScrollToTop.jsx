@@ -31,7 +31,7 @@ const ScrollToTop = ({ children }) => {
     }, 100);
   }, [pathname]);
 
-  return <div className="overflow-hidden">{children}</div>;
+  return <div className="overflow-x-clip">{children}</div>;
 };
 
 export default ScrollToTop;
